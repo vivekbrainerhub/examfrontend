@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import InstructionsPage from "../../controller/InstructionsPage";
 import Examstart from "./Examstart";
 import {
+  questionClassService,
   questionService,
   startExamService,
   timeLeftService,
@@ -13,7 +14,7 @@ import { toast } from "react-toastify";
 const DashboardExam = () => {
   const [step, setStep] = useState(1);
   const user = useSelector((store) => store.user.currentuser);
-  const question = useSelector((store) => store.exam.question);
+  const question = useSelector((store) => store.exam.questionClass);
   const examStart = useSelector((store) => store.exam);
   const [timeLeft, setTimeLeft] = useState(null);
   const [intervalId, setIntervalId] = useState(null);
@@ -86,7 +87,7 @@ const DashboardExam = () => {
   };
 
   const fetchQuestion = async () => {
-    const response = await questionService();
+    const response = await questionClassService(user?._id);
   };
 
   useEffect(() => {

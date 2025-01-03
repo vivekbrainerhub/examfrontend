@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom"; // Import Link for navigation
-import { loginService, registerService } from "../../services/userService";
+import { loginService} from "../../services/userService";
 import { toast } from "react-toastify"; // Import the toast function
 import "react-toastify/dist/ReactToastify.css";
 const schema = Yup.object().shape({
@@ -31,7 +31,11 @@ const Login = () => {
     const response = await loginService(data);
     if (response?.status === "success") {
       toast.success(response.message);
-      navigate("/dashboard");
+      if (response?.data?.result.role === 0) {
+        navigate("/dashboard");
+      } else {
+        navigate("/dashboard-admin");
+      }
     } else {
       toast.error(response?.data);
     }

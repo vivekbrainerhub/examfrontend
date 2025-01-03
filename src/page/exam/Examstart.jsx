@@ -53,34 +53,36 @@ const Examstart = ({ question, timeLeft }) => {
 
       <h1 className="text-3xl font-bold mb-6 text-blue-600">MCQ Questions</h1>
       <div className="w-full max-w-4xl space-y-6">
-        {question?.map((item, index) => (
-          <div
-            key={item._id}
-            className="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition"
-          >
-            <h3 className="text-lg font-semibold text-gray-700 mb-4">
-              {index + 1}. {item?.question}
-            </h3>
-            <div className="space-y-2">
-              {item.options.map((option, optionIndex) => (
-                <label
-                  key={optionIndex}
-                  className="flex items-center space-x-3 cursor-pointer"
-                >
-                  <input
-                    type="checkbox"
-                    name={`question-${index}`}
-                    value={optionIndex}
-                    checked={answers[index] === optionIndex}
-                    onChange={() => handleOptionChange(index, optionIndex)}
-                    className="w-5 h-5 text-blue-600 border-gray-300 focus:ring-blue-500"
-                  />
-                  <span className="text-gray-600">{option}</span>
-                </label>
-              ))}
+        {question
+          ?.filter((item) => !item.delete) // Exclude items where delete is true
+          .map((item, index) => (
+            <div
+              key={item._id}
+              className="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition"
+            >
+              <h3 className="text-lg font-semibold text-gray-700 mb-4">
+                {index + 1}. {item?.question}
+              </h3>
+              <div className="space-y-2">
+                {item.options.map((option, optionIndex) => (
+                  <label
+                    key={optionIndex}
+                    className="flex items-center space-x-3 cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      name={`question-${index}`}
+                      value={optionIndex}
+                      checked={answers[index] === optionIndex}
+                      onChange={() => handleOptionChange(index, optionIndex)}
+                      className="w-5 h-5 text-blue-600 border-gray-300 focus:ring-blue-500"
+                    />
+                    <span className="text-gray-600">{option}</span>
+                  </label>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
       <button
         type="submit"

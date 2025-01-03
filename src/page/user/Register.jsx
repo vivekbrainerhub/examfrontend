@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 const schema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
   dob: Yup.string().required("Date of birth is required"),
+  study: Yup.number().required("Exam for which class"),
   phoneNumber: Yup.string()
     .matches(/^[0-9]{10}$/, "Phone number must be 10 digits")
     .required("Phone number is required"),
@@ -88,6 +89,24 @@ const Register = () => {
               />
               {errors.dob && (
                 <p className="text-red-500 text-sm">{errors.dob.message}</p>
+              )}
+            </div>
+            
+            <div>
+              <label
+                htmlFor="study"
+                className="block text-sm font-medium text-gray-900 dark:text-white"
+              >
+               Exam for which Class
+              </label>
+              <input
+                type="number"
+                id="study"
+                className="w-full p-2.5 border rounded-lg focus:ring-primary-600 dark:bg-gray-700 dark:border-gray-600"
+                {...register("study")}
+              />
+              {errors.study && (
+                <p className="text-red-500 text-sm">{errors.study.message}</p>
               )}
             </div>
 
